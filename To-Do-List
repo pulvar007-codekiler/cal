@@ -1,0 +1,150 @@
+<!-- HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="con">
+        <h3 id="title">To-Do List</h3>
+        <input id="inp" type="text">
+        <button id="btn">Add</button>
+        <ul id="List">
+
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+// css
+
+
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+}
+.con{
+    background-color: turquoise;
+    height: auto;
+    width: 300px;
+    border-radius: 10px;
+}
+#title{
+    margin:20px 0 10px 100px;
+    color:red
+
+}
+#inp{
+    margin-left: 60px;
+    padding:3px 5px;
+
+}
+#btn{
+    padding:3px 10px;
+    border-radius:4px;
+    border:none;
+    color:rgb(103, 9, 244);
+    background-color: rgb(232, 143, 143);
+}
+#List{
+    list-style:none;
+    margin-left:50px;
+    margin-top:20px;
+}
+.List-item{
+    display:flex;
+    justify-content: space-between;
+
+  border-radius: 3px;
+  border:2px solid grey;
+  background-color: lightgrey;
+  color:purple;
+  width:90%;
+  padding:5px 10px;
+  margin-top:10px;
+} 
+.del-btn{
+    border:2px solid black;
+    border-radius:4px;
+    background-color: red;
+    color:white;
+    cursor: pointer;
+    margin-left: auto;
+}
+.up-btn{
+    border:2px solid brown;
+    border-radius:4px;
+    background-color: burlywood;
+    color:black; 
+     margin-left: auto;}
+.del-All{
+    border:2px solid black;
+    border-radius:4px;
+    color:black;
+    background-color: orchid;
+    margin-left: auto;
+}
+
+
+
+//javascript
+
+
+
+let inputBox=document.getElementById("inp");
+let addBtn=document.getElementById("btn");
+let List=document.getElementById("List");
+function addItem(){
+    let inputValue= inputBox.value;
+    let li=document.createElement("li");
+    li.textContent=inputValue;
+    li.classList.add("List-item");
+    List.appendChild(li);
+    let update=document.createElement("button");
+    update.textContent="Edit";
+    update.classList.add("up-btn");
+    update.addEventListener("click",()=>{
+        let newValue=prompt("Enter new value",li.firstChild.textContent);
+        if(newValue){
+            li.firstChild.textContent=newValue;
+        }
+    })
+    li.appendChild(update);
+    let delbtn=document.createElement("button");
+    delbtn.textContent="X";
+    delbtn.classList.add("del-btn");
+    delbtn.addEventListener("click",()=>{
+        List.removeChild(li);
+    })
+    li.appendChild(delbtn);
+
+    //delete All
+    let delAll=document.createElement("button");
+    delAll.textContent="deleteAll";
+    delAll.classList.add("del-All");
+    delAll.addEventListener("click",()=>{
+        List.innerHTML="";
+    })
+    li.appendChild(delAll);
+    inputBox.value="";
+    
+}
+addBtn.addEventListener("click",addItem);
